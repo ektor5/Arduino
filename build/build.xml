@@ -155,7 +155,7 @@
   <target name="assemble-hardware" unless="light_bundle">
     <copy todir="${target.path}/hardware">
       <fileset dir="../hardware">
-        <exclude name="arduino/sam/**"/>
+        <exclude name="arduino/avr/**"/>
       </fileset>
     </copy>
   </target>
@@ -247,6 +247,7 @@
 
     <copy todir="linux/work" file="linux/dist/arduino" />
     <chmod perm="755" file="linux/work/arduino" />
+    
     <!-- libastylej
     <antcall target="unzip">
       <param name="archive_file" value="./libastylej-2.05.zip" />
@@ -255,22 +256,21 @@
       <param name="dest_folder" value="${staging_folder}" />
     </antcall>
     -->
-    <symlink link="/usr/lib/jni/libastylej.so" resource="linux/work/lib/libastylej.so" />
-  
+    <symlink resource="/usr/lib/jni/libastylej.so" link="linux/work/lib/libastylej.so" />
+    
+    
+    <!-- bossac -->
+    <copy file="linux/dist/bossac${arch-bits}" tofile="linux/work/hardware/tools/bossac" />
+    <chmod perm="755" file="linux/work/hardware/tools/bossac" />
+    
+    
   </target>
+  
   <target name="linux32-build" depends="linux-build" description="Build linux (32-bit) version">
+    
     <antcall target="linux-jvm-${linux-bundle-jvm-task}">
       <param name="JVM" value="${LINUX32_BUNDLED_JVM}"/>
     </antcall>
-    <!--
-    <antcall target="avr-toolchain-bundle">
-      <param name="unpack_target" value="untar"/>
-      <param name="gcc_archive_file" value="avr-gcc-4.8.1-arduino5-i686-pc-linux-gnu.tar.bz2"/>
-      <param name="gcc_version" value="4.8.1-arduino5"/>
-      <param name="avrdude_archive_file" value="avrdude-6.0.1-arduino5-i686-pc-linux-gnu.tar.bz2"/>
-      <param name="avrdude_version" value="6.0.1-arduino5"/>
-    </antcall>
-    -->
     <antcall target="package-library-index-json-bundle"/>
   </target>
 
