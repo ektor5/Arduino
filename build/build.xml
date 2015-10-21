@@ -201,8 +201,8 @@
   <target name="assemble-hardware" unless="light_bundle">
     <copy todir="${target.path}/hardware">
       <fileset dir="../hardware">
-        <exclude name="arduino/sam/**"/>
-        <exclude name="arduino/neo/**"/>
+        <exclude name="arduino/**"/>
+        <exclude name="udoo/**"/>
       </fileset>
     </copy>
   </target>
