@@ -1,0 +1,1 @@
+Specifies a function to call when an external interrupt occurs.
